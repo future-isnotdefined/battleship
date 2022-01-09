@@ -6,6 +6,7 @@ int main (void) {
     printf("Hello Planet");
     printf("FAAAAAAAAAAACK!");
     printf("keno 1 ");
+    printf("keno 2 ");
 
     return 0;
 }
