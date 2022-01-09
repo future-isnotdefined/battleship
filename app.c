@@ -6,6 +6,7 @@ int main (void) {
     printf("Hello Planet");
     printf("FAAAAAAAAAAACK!");
     printf("keno 1 ");
+    printf("keno 2 ");
 
     printf("hdfdf fehler haha nicht zuerst gepullt\n");
     printf("test 1337");
