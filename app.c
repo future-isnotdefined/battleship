@@ -7,5 +7,8 @@ int main (void) {
     printf("FAAAAAAAAAAACK!");
     printf("keno 1 ");
 
+    printf("hdfdf fehler haha nicht zuerst gepullt\n");
+    printf("test 1337");
+    printf("hdfdf fehler haha nicht zuerst gepullt\n");
     return 0;
 }
