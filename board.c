@@ -14,6 +14,17 @@ void genBoard(int board1[10][10], int board2[10][10]) {
     }
 }
 
+/* schiffe in struct initialisieren.
+
+struct beinhaltet:
+
+- Spieler
+- (deutscher) Ausgabename vom Schiff
+- Anzahl
+- Größe
+
+*/
+
 bool placeShip(int board[10][10], int ship[], int size, int pos1Y, int pos1X, int pos2Y, int pos2X){
 
     board[pos1Y-1][pos1X-1] = ship[0];
@@ -36,18 +47,20 @@ bool placeShip(int board[10][10], int ship[], int size, int pos1Y, int pos1X, in
     if (pos1Y == pos2Y) {
         //Check which is bigger
         if (pos1X > pos2X){
-            for (int i = pos2X; i <= pos1X; i++)
-            {
+            for (int i = pos2X; i <= pos1X; i++) {
                 if (board[pos1Y-1][i-1] != -1) {
                     printf("ERROR space already occupied");
                     return false;
                 }
                 //Insert loop to assign the ship
+                for (int i = pos2X; i <= pos1X; i++) {
+                    board[pos1Y-1][i-1] = false;
+                    board[pos1Y-1][i-1] = ship[i-1];
+                }
             }
         //Case pos 2 is bigger
         } else {
-            for (int i = pos1X; i <= pos2X; i++)
-            {
+            for (int i = pos1X; i <= pos2X; i++) {
                 if (board[pos1Y-1][i-1] != -1) {
                     printf("ERROR space already occupied");
                     return false;
@@ -60,6 +73,25 @@ bool placeShip(int board[10][10], int ship[], int size, int pos1Y, int pos1X, in
 
     //If ship is beign set vertically
     if (pos1X == pos2X) {
+        //Check which is bigger
+        if (pos1Y > pos2Y){
+            for (int i = pos2Y; i <= pos1Y; i++) {
+                if (board[pos1X-1][i-1] != -1) {
+                    printf("ERROR space already occupied");
+                    return false;
+                }
+                //Insert loop to assign the ship
+            }
+        //Case pos 2 is bigger
+        } else {
+            for (int i = pos1Y; i <= pos2Y; i++) {
+                if (board[pos1X-1][i-1] != -1) {
+                    printf("ERROR space already occupied");
+                    return false;
+                }
+                //Insert loop to assign the ship
+            }
+        }
 
     }
 
