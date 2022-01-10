@@ -17,8 +17,8 @@ void showHit(){
 
 bool checkWin(int hits){
     if (hits == 30){
-        return true;
-    } else {
         return false;
+    } else {
+        return true;
     }
 }

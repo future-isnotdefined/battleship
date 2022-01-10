@@ -14,7 +14,7 @@ int main (void) {
     int board2[10][10];
     int posY;
     int posX;
-    bool gameoverBool;
+    bool gameoverBool = true;
     int currentPlayer;
 
     //Ships player 1
