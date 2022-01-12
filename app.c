@@ -12,10 +12,6 @@ int main (void) {
     //[y][x]
     int board1[10][10];
     int board2[10][10];
-    int pos1Y;
-    int pos1X;
-    int pos2Y;
-    int pos2X;
     bool gameoverBool = true;
     int currentPlayer;
 
@@ -55,22 +51,17 @@ int main (void) {
     scanf(" %[^\n]", player2);
 
     genBoard(board1, board2);
+    // show empty board
+    // showBoard(board1);
 
     //Player1
-    showBoard(board1);
+    uiPlaceShips(board1, schlachtschiffplayer1, sizeof(schlachtschiffplayer1)-1, "Schlachtschiff");
+    uiPlaceShips(board1, kreuzer1player1, sizeof(kreuzer1player1)-1, "Kreuzer");
+    uiPlaceShips(board1, kreuzer2player1, sizeof(kreuzer2player1)-1);
+    uiPlaceShips(board1, zerstoerer1player1, sizeof(zerstoerer1player1)-1);
+    uiPlaceShips(board1, zerstoerer2player1, sizeof(zerstoerer2player1)-1);
+    uiPlaceShips(board1, zerstoerer3player1, sizeof(zerstoerer3player1)-1);
 
-    // Schiffe Platzieren
-    printf("Schlachtschiff platzieren: \n");
-    printf("Startkoordinaten eingeben (Buchstabe, Zahl)\n");
-    scanf(" %c %d", &pos1Y, &pos1X);
-    // pos1Y = pos1Y - 65;
-    // pos1X = pos1X - 1;
-    printf("\npos1Y: %d pos1X: %d\n", pos1Y, pos1X);
-    printf("Endkoordinaten eingeben (Buchstabe, Zahl)");
-    scanf("%d %d", &pos2Y, &pos2X);
-    pos2Y = pos2Y - 65;
-    pos2X = pos2X - 1;
-    placeShip(board1, schlachtschiffplayer1, sizeof(schlachtschiffplayer1), pos1Y, pos1X, pos2Y, pos2X);
 
     // nach dem Platzieren
     showBoard(board1);
