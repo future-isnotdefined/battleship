@@ -25,9 +25,7 @@ struct beinhaltet:
 
 */
 
-bool placeShip(int board[][10], int ship[], int size, int pos1Y, int pos1X, int pos2Y, int pos2X){
-
-    board[pos1Y-1][pos1X-1] = ship[0];
+bool placeShip(int board[][10], bool ship[], int size, int pos1Y, int pos1X, int pos2Y, int pos2X){
 
     //Check if coords are in range
     if (pos1Y < 0 || pos1Y > 9 || pos1X < 0 || pos1X > 9 || pos2Y < 0 || pos2Y > 9 || pos2X < 0 || pos2X > 9) { //If coordinate is out of range
@@ -48,27 +46,27 @@ bool placeShip(int board[][10], int ship[], int size, int pos1Y, int pos1X, int 
         //Check which is bigger
         if (pos1X > pos2X){
             for (int i = pos2X; i <= pos1X; i++) {
-                if (board[pos1Y-1][i-1] != -1) {
+                if (board[pos1Y][i] != -1) {
                     printf("ERROR space already occupied");
                     return false;
                 }
                 //Insert loop to assign the ship
                 for (int i = pos2X, j = 0; i <= pos1X; i++, j++) {
                     ship[j] = false;
-                    board[pos1Y-1][i-1] = ship[j];
+                    board[pos1Y][i] = ship[j];
                 }
             }
         //Case pos 2 is bigger
         } else {
             for (int i = pos1X; i <= pos2X; i++) {
-                if (board[pos1Y-1][i-1] != -1) {
+                if (board[pos1Y][i] != -1) {
                     printf("ERROR space already occupied");
                     return false;
                 }
                 //Insert loop to assign the ship
                 for (int i = pos1X, j = 0; i <= pos2X; i++, j++) {
                     ship[j] = false;
-                    board[pos1Y-1][i-1] = ship[j];
+                    board[pos1Y][i] = ship[j];
                 }
             }
         }
@@ -80,27 +78,27 @@ bool placeShip(int board[][10], int ship[], int size, int pos1Y, int pos1X, int 
         //Check which is bigger
         if (pos1Y > pos2Y){
             for (int i = pos2Y; i <= pos1Y; i++) {
-                if (board[i-1][pos1X-1] != -1) {
+                if (board[i][pos1X] != -1) {
                     printf("ERROR space already occupied");
                     return false;
                 }
                 //Insert loop to assign the ship
                 for (int i = pos2Y, j = 0; i <= pos1Y; i++, j++) {
                     ship[j] = false;
-                    board[i-1][pos1X-1] = ship[j];
+                    board[i][pos1X] = ship[j];
                 }
             }
         //Case pos 2 is bigger
         } else {
             for (int i = pos1Y; i <= pos2Y; i++) {
-                if (board[i-1][pos1X-1] != -1) {
+                if (board[i][pos1X] != -1) {
                     printf("ERROR space already occupied");
                     return false;
                 }
                 //Insert loop to assign the ship
                 for (int i = pos1Y, j = 0; i <= pos2Y; i++, j++) {
                     ship[j] = false;
-                    board[i-1][pos1X-1] = ship[j];
+                    board[i][pos1X] = ship[j];
                 }
             }
         }

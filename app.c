@@ -12,8 +12,10 @@ int main (void) {
     //[y][x]
     int board1[10][10];
     int board2[10][10];
-    int posY;
-    int posX;
+    int pos1Y;
+    int pos1X;
+    int pos2Y;
+    int pos2X;
     bool gameoverBool = true;
     int currentPlayer;
 
@@ -56,6 +58,21 @@ int main (void) {
 
     //Player1
     showBoard(board1);
+
+    // Schiffe Platzieren
+    printf("Schlachtschiff platzieren: \n");
+    printf("Startkoordinaten eingeben (Buchstabe, Zahl)\n");
+    scanf(" %c %d", &pos1Y, &pos1X);
+    // pos1Y = pos1Y - 65;
+    // pos1X = pos1X - 1;
+    printf("\npos1Y: %d pos1X: %d\n", pos1Y, pos1X);
+    printf("Endkoordinaten eingeben (Buchstabe, Zahl)");
+    scanf("%d %d", &pos2Y, &pos2X);
+    pos2Y = pos2Y - 65;
+    pos2X = pos2X - 1;
+    placeShip(board1, schlachtschiffplayer1, sizeof(schlachtschiffplayer1), pos1Y, pos1X, pos2Y, pos2X);
+
+    // nach dem Platzieren
     showBoard(board1);
 
     //Clear screen
@@ -65,8 +82,12 @@ int main (void) {
    
 
     //Player2
-    showBoard(board1);
-    showBoard(board1);
+    showBoard(board2);
+
+    // Schiffe Platzieren
+
+    // nach dem Platzieren
+    // showBoard(board2);
 
 
     //Game Loop -----------------------------------------
