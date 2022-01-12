@@ -1,8 +1,8 @@
 #ifndef __board_h__
 #define __board_h__
 
-void genBoard(int * board1, int * board2);
-bool placeShip(int * board, int * ship, int size, int pos1Y, int pos1X);
-void showBoard(int * board);
+void genBoard(int board1[][10], int board2[][10]);
+bool placeShip(int board[][10], int ship[], int size, int pos1Y, int pos1X, int pos2Y, int pos2X);
+void showBoard(int board[][10]);
 
 #endif

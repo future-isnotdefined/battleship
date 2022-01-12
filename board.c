@@ -4,7 +4,7 @@
 
 
 //Functions
-void genBoard(int board1[10][10], int board2[10][10]) {
+void genBoard(int board1[][10], int board2[][10]) {
     for (int y = 0; y < 10; y++){
         for (int x = 0; x < 10; x++)
         {
@@ -25,7 +25,7 @@ struct beinhaltet:
 
 */
 
-bool placeShip(int board[10][10], int ship[], int size, int pos1Y, int pos1X, int pos2Y, int pos2X){
+bool placeShip(int board[][10], int ship[], int size, int pos1Y, int pos1X, int pos2Y, int pos2X){
 
     board[pos1Y-1][pos1X-1] = ship[0];
 
@@ -109,7 +109,7 @@ bool placeShip(int board[10][10], int ship[], int size, int pos1Y, int pos1X, in
 
 }
 
-void showBoard(int board[10][10]){
+void showBoard(int board[][10]){
     int charsize = 65; //65 is A 97 is a
     //Print the top row
     printf("+");
