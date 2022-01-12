@@ -27,7 +27,7 @@ struct beinhaltet:
 
 bool placeShip(int board[][10], bool ship[], int size, int pos1Y, int pos1X, int pos2Y, int pos2X){
 
-    printf("\npos1Y: %d  pos1X: %d  pos2Y: %d  pos2X: %d  size: %d\n\n", pos1Y, pos1X, pos2Y, pos2X, size);
+    //printf("\npos1Y: %d  pos1X: %d  pos2Y: %d  pos2X: %d  size: %d\n\n", pos1Y, pos1X, pos2Y, pos2X, size);
 
     //Check if coords are in range
     if (pos1Y < 0 || pos1Y > 9 || pos1X < 0 || pos1X > 9 || pos2Y < 0 || pos2Y > 9 || pos2X < 0 || pos2X > 9) { //If coordinate is out of range
@@ -188,7 +188,7 @@ void uiPlaceShips(int board[][10], bool ship[], int size, char shipName[]) {
         scanf(" %c %d", &pos1Y, &pos1X);
         pos1Y = pos1Y - 65;
         pos1X = pos1X - 1;
-        printf("\npos1Y: %d pos1X: %d\n", pos1Y, pos1X);
+        //printf("\npos1Y: %d pos1X: %d\n", pos1Y, pos1X); TEST
         printf("Endkoordinaten eingeben (Buchstabe, Zahl)\n");
         scanf(" %c %d", &pos2Y, &pos2X);
         pos2Y = pos2Y - 65;
