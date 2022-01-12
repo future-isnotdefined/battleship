@@ -56,11 +56,18 @@ int main (void) {
 
     //Player1
     uiPlaceShips(board1, schlachtschiffplayer1, sizeof(schlachtschiffplayer1)-1, "Schlachtschiff");
-    uiPlaceShips(board1, kreuzer1player1, sizeof(kreuzer1player1)-1, "Kreuzer");
-    uiPlaceShips(board1, kreuzer2player1, sizeof(kreuzer2player1)-1);
-    uiPlaceShips(board1, zerstoerer1player1, sizeof(zerstoerer1player1)-1);
-    uiPlaceShips(board1, zerstoerer2player1, sizeof(zerstoerer2player1)-1);
-    uiPlaceShips(board1, zerstoerer3player1, sizeof(zerstoerer3player1)-1);
+
+    uiPlaceShips(board1, kreuzer1player1, sizeof(kreuzer1player1)-1, "Erster Kreuzer");
+    uiPlaceShips(board1, kreuzer2player1, sizeof(kreuzer2player1)-1, "Zweiter Kreuzer");
+
+    uiPlaceShips(board1, zerstoerer1player1, sizeof(zerstoerer1player1)-1, "Erster Zerstoerer");
+    uiPlaceShips(board1, zerstoerer2player1, sizeof(zerstoerer2player1)-1, "Zweiter Zerstoerer");
+    uiPlaceShips(board1, zerstoerer3player1, sizeof(zerstoerer3player1)-1, "Dritter Zerstoerer");
+
+    uiPlaceShips(board1, uboot1player1, sizeof(uboot1player1)-1, "Erstes U-Boot");
+    uiPlaceShips(board1, uboot2player1, sizeof(uboot2player1)-1, "Zweites U-Boot");
+    uiPlaceShips(board1, uboot3player1, sizeof(uboot3player1)-1, "Drittes U-Boot");
+    uiPlaceShips(board1, uboot4player1, sizeof(uboot4player1)-1, "Viertes U-Boot");
 
 
     // nach dem Platzieren
@@ -76,9 +83,22 @@ int main (void) {
     showBoard(board2);
 
     // Schiffe Platzieren
+    uiPlaceShips(board1, schlachtschiffplayer2, sizeof(schlachtschiffplayer2)-1, "Schlachtschiff");
+    
+    uiPlaceShips(board1, kreuzer1player2, sizeof(kreuzer1player2)-1, "Erster Kreuzer");
+    uiPlaceShips(board1, kreuzer2player2, sizeof(kreuzer2player2)-1, "Zweiter Kreuzer");
+
+    uiPlaceShips(board1, zerstoerer1player2, sizeof(zerstoerer1player2)-1, "Erster Zerstoerer");
+    uiPlaceShips(board1, zerstoerer2player2, sizeof(zerstoerer2player2)-1, "Zweiter Zerstoerer");
+    uiPlaceShips(board1, zerstoerer3player2, sizeof(zerstoerer3player2)-1, "Dritter Zerstoerer");
+
+    uiPlaceShips(board1, uboot1player2, sizeof(uboot1player2)-1, "Erstes U-Boot");
+    uiPlaceShips(board1, uboot2player2, sizeof(uboot2player2)-1, "Zweites U-Boot");
+    uiPlaceShips(board1, uboot3player2, sizeof(uboot3player2)-1, "Drittes U-Boot");
+    uiPlaceShips(board1, uboot4player2, sizeof(uboot4player2)-1, "Viertes U-Boot");
 
     // nach dem Platzieren
-    // showBoard(board2);
+    showBoard(board2);
 
 
     //Game Loop -----------------------------------------
