@@ -53,9 +53,9 @@ bool placeShip(int board[10][10], int ship[], int size, int pos1Y, int pos1X, in
                     return false;
                 }
                 //Insert loop to assign the ship
-                for (int i = pos2X; i <= pos1X; i++) {
+                for (int i = pos2X, j = 0; i <= pos1X; i++, j++) {
                     board[pos1Y-1][i-1] = false;
-                    board[pos1Y-1][i-1] = ship[i-1];
+                    board[pos1Y-1][i-1] = ship[j];
                 }
             }
         //Case pos 2 is bigger
@@ -66,6 +66,10 @@ bool placeShip(int board[10][10], int ship[], int size, int pos1Y, int pos1X, in
                     return false;
                 }
                 //Insert loop to assign the ship
+                for (int i = pos1X, j = 0; i <= pos2X; i++, j++) {
+                    board[pos1Y-1][i-1] = false;
+                    board[pos1Y-1][i-1] = ship[j];
+                }
             }
         }
     }
@@ -81,6 +85,10 @@ bool placeShip(int board[10][10], int ship[], int size, int pos1Y, int pos1X, in
                     return false;
                 }
                 //Insert loop to assign the ship
+                for (int i = pos2Y, j = 0; i <= pos1Y; i++, j++) {
+                    board[pos1X-1][i-1] = false;
+                    board[pos1X-1][i-1] = ship[j];
+                }
             }
         //Case pos 2 is bigger
         } else {
@@ -90,6 +98,10 @@ bool placeShip(int board[10][10], int ship[], int size, int pos1Y, int pos1X, in
                     return false;
                 }
                 //Insert loop to assign the ship
+                for (int i = pos1Y, j = 0; i <= pos2Y; i++, j++) {
+                    board[pos1X-1][i-1] = false;
+                    board[pos1X-1][i-1] = ship[j];
+                }
             }
         }
 

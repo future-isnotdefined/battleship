@@ -41,14 +41,16 @@ int main (void) {
     bool uboot2player2[2];
     bool uboot3player2[2];
     bool uboot4player2[2];
-    bool hitsplayer1;
+    bool hitsplayer2;
 
     //if ship is hit it is 1 otherwise it is 0
     //Board is -1 if no ship is on the space
 
     //Pre Loop ------------------------------------------
-    printf("");
-    printf("");
+    printf("Name Spieler 1: ");
+    scanf("%[^\n]", player1);
+    printf("\nName Spieler 2: ");
+    scanf("%[^\n]", player2);
 
     genBoard(board1, board2);
 
