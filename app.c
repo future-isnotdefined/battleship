@@ -48,9 +48,9 @@ int main (void) {
 
     //Pre Loop ------------------------------------------
     printf("Name Spieler 1: ");
-    scanf("%[^\n]", player1);
+    scanf(" %[^\n]", player1);
     printf("\nName Spieler 2: ");
-    scanf("%[^\n]", player2);
+    scanf(" %[^\n]", player2);
 
     genBoard(board1, board2);
 
