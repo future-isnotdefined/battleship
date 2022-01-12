@@ -1,6 +1,7 @@
 //Includes
 #include <stdio.h>
 #include <stdbool.h>
+#define MAX_LEN 128
 
 
 //Functions
@@ -186,14 +187,23 @@ void uiPlaceShips(int board[][10], bool ship[], int size, char shipName[]) {
         printf("%s platzieren: \n", shipName);
         printf("Startkoordinaten eingeben (Buchstabe, Zahl)\n");
         scanf(" %c %d", &pos1Y, &pos1X);
+        getchar();
         pos1Y = pos1Y - 65;
         pos1X = pos1X - 1;
         //printf("\npos1Y: %d pos1X: %d\n", pos1Y, pos1X); TEST
         printf("Endkoordinaten eingeben (Buchstabe, Zahl)\n");
         scanf(" %c %d", &pos2Y, &pos2X);
+        getchar();
         pos2Y = pos2Y - 65;
         pos2X = pos2X - 1;
         falsePlacement = placeShip(board, ship, size, pos1Y, pos1X, pos2Y, pos2X); // -1 for index matching for arrays
     }
 
+}
+
+void print_image(FILE *fptr) {
+    char read_string[MAX_LEN];
+ 
+    while(fgets(read_string,sizeof(read_string),fptr) != NULL)
+        printf("%s",read_string);
 }

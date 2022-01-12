@@ -45,11 +45,26 @@ int main (void) {
     //if ship is hit it is 1 otherwise it is 0
     //Board is -1 if no ship is on the space
 
+
+    char *filename = "title.txt";
+    FILE *fptr = NULL;
+    if((fptr = fopen(filename,"r")) == NULL) {
+        fprintf(stderr,"error opening %s\n",filename);
+        return 1;
+    } 
+    print_image(fptr);
+    fclose(fptr);
+
+    getchar();
+    system("cls");
+
     //Pre Loop ------------------------------------------
     printf("Name Spieler 1: ");
     scanf(" %[^\n]", player1);
+    getchar();
     printf("\nName Spieler 2: ");
     scanf(" %[^\n]", player2);
+    getchar();
 
     genBoard(board1, board2);
     // show empty board
@@ -74,14 +89,14 @@ int main (void) {
 
     // nach dem Platzieren
     showBoard(board1);
-    printf("\n Enter drücken um zum zweiten Spieler zu wechseln");
-    scanf("");
+    printf("\n Enter dr%ccken um zum zweiten Spieler zu wechseln ", 129);
+    getchar();
 
     //Clear screen
     system("cls");
 
     //Player2
-    showBoard(board2);
+    // showBoard(board2);
 
     // Schiffe Platzieren
     uiPlaceShips(board2, schlachtschiffplayer2, sizeof(schlachtschiffplayer2)-1, "Schlachtschiff");
