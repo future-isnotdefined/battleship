@@ -1,9 +1,10 @@
 #ifndef __gameloop_h__
 #define __gameloop_h__
+#include <stdio.h>
+#include <stdlib.h>
 
-void shoot(int * board, int posX, int posY, int * hits);
-void checkHit(int * board, int posY, int posX, int hits);
-void showHit();
+bool shoot(int board[][10], int * hits);
+int checkHit(int board[][10], int posY, int posX);
 bool checkWin(int hits);
 
 #endif

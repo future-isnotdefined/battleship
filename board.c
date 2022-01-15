@@ -141,6 +141,7 @@ bool placeShip(int board[][10], bool ship[], int size, int pos1Y, int pos1X, int
 void showBoard(int board[][10]){
     int charsize = 65; //65 is A 97 is a
     //Print the top row
+    printf("Own board\n");
     printf("+");
     for (int i = 1; i < 11; i++){
         printf("  %d",i);
@@ -154,11 +155,52 @@ void showBoard(int board[][10]){
         for (int x = 0; x < 10; x++)
         {
             if (board[y][x] == -1) {
-                printf("  .");
+                printf("  ."); //ist leer
             } else if (board[y][x] == 0) {
-                printf("  O");
-            } else {
-                printf("  X");
+                printf("  O"); //besetzt mit Schiff
+            } else if(board[y][x] == -2){
+                printf("  #"); //bereits beschossen ( leer)
+            }else {
+                printf("  X"); // Schiff getroffen
+            }
+        }
+        printf("  %c", y + charsize); //alphabet after
+        printf("\n");
+    }
+
+    //Print the last row
+    printf("+");
+    for (int i = 1; i < 11; i++){
+        printf("  %d",i);
+    }
+    printf(" +");
+    printf("\n");
+}
+
+void showEnemyBoard(int board[][10]){
+    int charsize = 65; //65 is A 97 is a
+    //Print the top row
+    printf("Enemy board\n");
+    printf("+");
+    for (int i = 1; i < 11; i++){
+        printf("  %d",i);
+    }
+    printf(" +");
+    printf("\n");
+
+    //Print every row with the field names
+    for (int y = 0; y < 10; y++){
+        printf("%c", y + charsize); //alphabet before
+        for (int x = 0; x < 10; x++)
+        {
+            if (board[y][x] == -1) {
+                printf("  ."); //ist leer
+            } else if (board[y][x] == 0) {
+                printf("  ."); //besetzt mit Schiff
+            } else if(board[y][x] == -2){
+                printf("  #"); //bereits beschossen ( leer)
+            }else if (board[y][x] == 1){
+                printf("  \e[X\e[0m"); // Schiff getroffen
             }
         }
         printf("  %c", y + charsize); //alphabet after
