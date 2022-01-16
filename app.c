@@ -8,8 +8,8 @@
 int main (void) {
 
     //Definition of Variables ---------------------------
-    char player1[10];
-    char player2[10];
+    char player1[30];
+    char player2[30];
     //[y][x]
     int board1[10][10];
     int board2[10][10];
@@ -72,7 +72,7 @@ int main (void) {
     // showBoard(board1);
 
     //Player1
-    uiPlaceShips(board1, schlachtschiffplayer1, sizeof(schlachtschiffplayer1)-1, "Schlachtschiff");
+    uiPlaceShips(board1, schlachtschiffplayer1, sizeof(schlachtschiffplayer1)-1, "Schlachtschiff", player1);
 
     // uiPlaceShips(board1, kreuzer1player1, sizeof(kreuzer1player1)-1, "Erster Kreuzer");
     // uiPlaceShips(board1, kreuzer2player1, sizeof(kreuzer2player1)-1, "Zweiter Kreuzer");
@@ -89,8 +89,8 @@ int main (void) {
 
 
     // nach dem Platzieren
-    showBoard(board1);
-    printf("\n Enter dr%ccken um zum zweiten Spieler zu wechseln ", 129);
+    showBoard(board1, player1);
+    printf("\n Enter dr%ccken um zu \"%s\" zu wechseln ", 129, player2);
     getchar();
 
     //Clear screen
@@ -100,7 +100,7 @@ int main (void) {
     // showBoard(board2);
 
     // Schiffe Platzieren
-    uiPlaceShips(board2, schlachtschiffplayer2, sizeof(schlachtschiffplayer2)-1, "Schlachtschiff");
+    uiPlaceShips(board2, schlachtschiffplayer2, sizeof(schlachtschiffplayer2)-1, "Schlachtschiff", player2);
     
     // uiPlaceShips(board2, kreuzer1player2, sizeof(kreuzer1player2)-1, "Erster Kreuzer");
     // uiPlaceShips(board2, kreuzer2player2, sizeof(kreuzer2player2)-1, "Zweiter Kreuzer");
@@ -116,36 +116,34 @@ int main (void) {
     
 
     // nach dem Platzieren
-    showBoard(board2);
+    showBoard(board2, player2);
 
 
     //Game Loop -----------------------------------------
-    while(gameoverBool){
-        if(currentPlayer == 1){
-            do{
-            hitBool = shoot(board2, &hitsplayer1); //spieler 1 schießt auf board2
-
-            if(checkWin(hitsplayer1) == false){
-                printf("Player1 hast gewonnen");
-                gameoverBool = checkWin(hitsplayer1);
-            }
-             }while(hitBool);
+    while (gameoverBool) {
+        currentPlayer = 1;
+        if (currentPlayer == 1) {
+            do {
+                hitBool = shoot(board2, &hitsplayer1, player2, player1); //spieler 1 schießt auf board2 -> enemy board Eingabeparam
+                    if(checkWin(hitsplayer1) == true) {
+                        printf("%s hat gewonnen!", player1);
+                        gameoverBool = checkWin(hitsplayer1);
+                    }
+            } while (hitBool);
             currentPlayer = 2;
-        }else {
-            do{
-            hitBool = shoot(board1, &hitsplayer2); //spieler 2 schießt auf board1
-            if(checkWin(hitsplayer2) == false){
-                printf("Player2 hast gewonnen");
-                gameoverBool = checkWin(hitsplayer2);
-                }
-            }while(hitBool);
+        } else if (currentPlayer == 2) {
+            do {
+                hitBool = shoot(board1, &hitsplayer2, player1, player2); //spieler 2 schießt auf board1
+                    if (checkWin(hitsplayer2) == true) {
+                        printf("%s hat gewonnen!", player2);
+                        gameoverBool = checkWin(hitsplayer2);
+                        }
+                } while (hitBool);
             currentPlayer = 1;
+        } else {
+            printf("ERROR player identifier mismatch\n");
         }
-
-
-  
     }
-    
 
     return 0;
 }

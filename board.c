@@ -6,9 +6,8 @@
 
 //Functions
 void genBoard(int board1[][10], int board2[][10]) {
-    for (int y = 0; y < 10; y++){
-        for (int x = 0; x < 10; x++)
-        {
+    for (int y = 0; y < 10; y++) {
+        for (int x = 0; x < 10; x++) {
             board1[y][x] = -1;
             board2[y][x] = -1;
         }
@@ -138,10 +137,10 @@ bool placeShip(int board[][10], bool ship[], int size, int pos1Y, int pos1X, int
 
 }
 
-void showBoard(int board[][10]){
+void showBoard(int board[][10], char yourName[]){
     int charsize = 65; //65 is A 97 is a
     //Print the top row
-    printf("Own board\n");
+    printf("Dein Spielfeld, %s \n", yourName);
     printf("+");
     for (int i = 1; i < 11; i++){
         printf("  %d",i);
@@ -154,14 +153,14 @@ void showBoard(int board[][10]){
         printf("%c", y + charsize); //alphabet before
         for (int x = 0; x < 10; x++)
         {
-            if (board[y][x] == -1) {
-                printf("  ."); //ist leer
+            if (board[y][x] == 1) {
+                printf("  X"); // Schiff getroffen
             } else if (board[y][x] == 0) {
                 printf("  O"); //besetzt mit Schiff
             } else if(board[y][x] == -2){
                 printf("  #"); //bereits beschossen ( leer)
-            }else {
-                printf("  X"); // Schiff getroffen
+            } else {
+                printf("  ."); // leer / keine Infos
             }
         }
         printf("  %c", y + charsize); //alphabet after
@@ -177,10 +176,10 @@ void showBoard(int board[][10]){
     printf("\n");
 }
 
-void showEnemyBoard(int board[][10]){
+void showEnemyBoard(int board[][10], char enemyName[]){
     int charsize = 65; //65 is A 97 is a
     //Print the top row
-    printf("Enemy board\n");
+    printf("Spielfeld von Gegenspieler: %s\n", enemyName);
     printf("+");
     for (int i = 1; i < 11; i++){
         printf("  %d",i);
@@ -193,14 +192,12 @@ void showEnemyBoard(int board[][10]){
         printf("%c", y + charsize); //alphabet before
         for (int x = 0; x < 10; x++)
         {
-            if (board[y][x] == -1) {
-                printf("  ."); //ist leer
-            } else if (board[y][x] == 0) {
-                printf("  ."); //besetzt mit Schiff
-            } else if(board[y][x] == -2){
+            if (board[y][x] == 1) {
+                printf("  X"); // Schiff getroffen
+            } else if (board[y][x] == -2) {
                 printf("  #"); //bereits beschossen ( leer)
-            }else if (board[y][x] == 1){
-                printf("  \e[X\e[0m"); // Schiff getroffen
+            } else {
+                printf("  ."); // keine Informationen
             }
         }
         printf("  %c", y + charsize); //alphabet after
@@ -216,7 +213,7 @@ void showEnemyBoard(int board[][10]){
     printf("\n");
 }
 
-void uiPlaceShips(int board[][10], bool ship[], int size, char shipName[]) {
+void uiPlaceShips(int board[][10], bool ship[], int size, char shipName[], char yourName[]) {
     bool falsePlacement = false;
     char pos1Y;
     int pos1X;
@@ -224,7 +221,7 @@ void uiPlaceShips(int board[][10], bool ship[], int size, char shipName[]) {
     int pos2X;
 
     while (!(falsePlacement)) {
-        showBoard(board);
+        showBoard(board, yourName);
         // Schiffe Platzieren
         printf("%s platzieren: \n", shipName);
         printf("Startkoordinaten eingeben (Buchstabe, Zahl)\n");

@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "board.h"
 
 
 //Functions
@@ -13,7 +14,7 @@ int checkHit(int board[][10], int posY, int posX){
 if(board[posY][posX] == 0 ){ // Schiff getroffen
     return true;
 }
-if(board[posY][posX] == 1||-2){  //bereits getroffen
+if(board[posY][posX] == 1 || -2){  //bereits getroffen
     printf("Feld bereits beschossen\n");
     return -1;
 }
@@ -23,13 +24,15 @@ if(board[posY][posX] == -1){ // garnichts getroffen
 
 } 
 
-bool shoot(int board[][10], int * hits){
+bool shoot(int board[][10], int * hits, char enemyName[], char yourName[]){ // gegnerisches Board und Trefferanzahl aktueller Spieler
     int checkHitInt;
     int posX;
     int posY;
+
+    showEnemyBoard(board, enemyName);
    
-    do{
-        printf("Koordinaten f%cr Schuss angeben Kapit%cn!\n",192,227);
+    do {
+        printf("Koordinaten f%cr Schuss angeben, Kapit%cn \"%s\"!\n", 129, 132, yourName);
         scanf(" %c %d", &posY, &posX);
         getchar();
         posY = posY - 65;
@@ -37,17 +40,17 @@ bool shoot(int board[][10], int * hits){
 
         checkHitInt = checkHit(board, posY, posX);
         
-    }while(checkHitInt == -1);
+    } while(checkHitInt == -1);
 
-    if(checkHitInt == true){
+    if (checkHitInt == true) {
         printf("Schiff getroffen!\n");
         board[posY][posX] = 1;
         * hits++;
         return true; //ist true damit man nochmal schießen kann
-    }else if(checkHitInt == false){
-        printf("nicht getroffen\n");
+    } else if(checkHitInt == false) {
+        printf("Vorbei geschossen!\n");
         board[posY][posX] = -2; 
-        return false; // nicht nochaml schießen bei 0 && -1
+        return false; // nicht nochmal schießen bei 0 && -1
     }
 
 return false;
@@ -67,8 +70,8 @@ gegnerisches beschossenes feld anzeigen, (Schiff versenkt printf)
 
 bool checkWin(int hits){
     if (hits == 30){
-        return false;
-    } else {
         return true;
+    } else {
+        return false;
     }
 }
