@@ -8,21 +8,32 @@
 //Functions
 
 int checkHit(int board[][10], int posY, int posX){
-// 1 = Feld beschossen
-// 0 = Feld SChiff
-// -1 = Feld leer
-if(board[posY][posX] == 0 ){ // Schiff getroffen
-    return true;
-}
-if(board[posY][posX] == 1 || -2){  //bereits getroffen
-    printf("Feld bereits beschossen\n");
-    return -1;
-}
-if(board[posY][posX] == -1){ // garnichts getroffen
-    return false;
-}
+    // 1 = Feld mit Schiff bereits beschossen
+    // -2 = Feld leer bereits beschossen
+    // 0 = Feld mit Schiff
+    // -1 = Feld leer
 
-} 
+    int posValue = board[posY][posX];
+
+    switch(posValue) {
+        case 0 :
+            return true;
+            break;
+        case 1 :
+            printf("Feld bereits beschossen\n");
+            return -1;
+            break;
+        case -2 :
+            printf("Feld bereits beschossen\n");
+            return -1;
+            break;
+        case -1 :
+            return false;
+            break;
+        default :
+            printf("ERROR value not handled");
+    }
+}
 
 bool shoot(int board[][10], int * hits, char enemyName[], char yourName[]){ // gegnerisches Board und Trefferanzahl aktueller Spieler
     int checkHitInt;
@@ -39,6 +50,7 @@ bool shoot(int board[][10], int * hits, char enemyName[], char yourName[]){ // g
         posX = posX - 1;
 
         checkHitInt = checkHit(board, posY, posX);
+        printf("\n\n----- DEBUGGING ------- hitValue: %d\tposValue: %d\n\n", checkHitInt, board[posY][posX]);
         
     } while(checkHitInt == -1);
 
@@ -51,9 +63,10 @@ bool shoot(int board[][10], int * hits, char enemyName[], char yourName[]){ // g
         printf("Vorbei geschossen!\n");
         board[posY][posX] = -2; 
         return false; // nicht nochmal schießen bei 0 && -1
+    } else {
+       return false; 
     }
 
-return false;
 }
 
 /*
