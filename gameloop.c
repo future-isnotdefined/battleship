@@ -16,18 +16,18 @@ int checkHit(int board[][10], int posY, int posX){
     int posValue = board[posY][posX];
 
     switch(posValue) {
-        case 0 :
+        case 0 : // getroffen
             return true;
             break;
-        case 1 :
+        case 1 : // getroffenes feld doppelt beschossen
             printf("Feld bereits beschossen\n");
             return -1;
             break;
-        case -2 :
+        case -2 : // leeres feld doppelt beschossen
             printf("Feld bereits beschossen\n");
             return -1;
             break;
-        case -1 :
+        case -1 : // vorbei
             return false;
             break;
         default :
@@ -58,15 +58,14 @@ bool shoot(int board[][10], int * hits, char enemyName[], char yourName[]){ // g
         printf("Schiff getroffen!\n");
         board[posY][posX] = 1;
         * hits++;
-        return true; //ist true damit man nochmal schießen kann
+        return true; // ist true damit man nochmal schießen kann
     } else if(checkHitInt == false) {
-        printf("Vorbei geschossen!\n");
-        board[posY][posX] = -2; 
-        return false; // nicht nochmal schießen bei 0 && -1
-    } else {
-       return false; 
-    }
-
+            printf("Vorbei geschossen!\n");
+            board[posY][posX] = -2; 
+            return false; // nicht nochmal schießen bei 0 && -1
+        } else {
+            return false; 
+       }
 }
 
 /*
