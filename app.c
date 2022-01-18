@@ -120,28 +120,32 @@ int main (void) {
 
 
     //Game Loop -----------------------------------------
+    currentPlayer = 1;
     while (gameoverBool) {
-        currentPlayer = 1;
         if (currentPlayer == 1) {
             do {
                 hitBool = shoot(board2, &hitsplayer1, player2, player1); //spieler 1 schießt auf board2 -> enemy board Eingabeparam
-                printf("\n\n----- DEBUGGING ------- hitBool: %d\n\n");
+                // printf("\n\n----- DEBUGGING ------- hitBool: %d\n\n");
                     if(checkWin(hitsplayer1) == true) {
                         printf("%s hat gewonnen!", player1);
                         gameoverBool = checkWin(hitsplayer1);
                     }
             } while (hitBool);
             currentPlayer = 2;
+            printf("\n\"%s\" ist dran...\n[press enter]\n", player2);
+            getchar();
         } else if (currentPlayer == 2) {
             do {
                 hitBool = shoot(board1, &hitsplayer2, player1, player2); //spieler 2 schießt auf board1
-                    printf("\n\n----- DEBUGGING ------- hitBool: %d\n\n");
+                    // printf("\n\n----- DEBUGGING ------- hitBool: %d\n\n");
                     if (checkWin(hitsplayer2) == true) {
                         printf("%s hat gewonnen!", player2);
                         gameoverBool = checkWin(hitsplayer2);
                         }
                 } while (hitBool);
             currentPlayer = 1;
+            printf("\n\n\"%s\" ist dran...\n\n[press enter]\n", player1);
+            getchar();
         } else {
             printf("ERROR player identifier mismatch\n");
         }

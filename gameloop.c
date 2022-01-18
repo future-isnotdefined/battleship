@@ -50,7 +50,7 @@ bool shoot(int board[][10], int * hits, char enemyName[], char yourName[]){ // g
         posX = posX - 1;
 
         checkHitInt = checkHit(board, posY, posX);
-        printf("\n\n----- DEBUGGING ------- hitValue: %d\tposValue: %d\n\n", checkHitInt, board[posY][posX]);
+        // printf("\n\n----- DEBUGGING ------- hitValue: %d\tposValue: %d\n\n", checkHitInt, board[posY][posX]);
         
     } while(checkHitInt == -1);
 
@@ -61,7 +61,9 @@ bool shoot(int board[][10], int * hits, char enemyName[], char yourName[]){ // g
         return true; // ist true damit man nochmal schießen kann
     } else if(checkHitInt == false) {
             printf("Vorbei geschossen!\n");
-            board[posY][posX] = -2; 
+            board[posY][posX] = -2;
+            showEnemyBoard(board, enemyName);
+            // printf("\n\n----- DEBUGGING ------- hier muesste rausgesprungen werden (checkHitInt: %d). \n\n", checkHitInt);
             return false; // nicht nochmal schießen bei 0 && -1
         } else {
             return false; 
