@@ -29,6 +29,7 @@ int main (void) {
     bool uboot3player1[2];
     bool uboot4player1[2];
     int hitsplayer1;
+    int shipFields1;
 
     //Ships player 2
     bool schlachtschiffplayer2[5];
@@ -42,6 +43,7 @@ int main (void) {
     bool uboot3player2[2];
     bool uboot4player2[2];
     int hitsplayer2;
+    int shipFields2;
 
     //if ship is hit it is 1 otherwise it is 0
     //Board is -1 if no ship is on the space
@@ -73,6 +75,7 @@ int main (void) {
 
     //Player1
     uiPlaceShips(board1, schlachtschiffplayer1, sizeof(schlachtschiffplayer1)-1, "Schlachtschiff", player1);
+    shipFields1 = countShipFields(board1);
 
     // uiPlaceShips(board1, kreuzer1player1, sizeof(kreuzer1player1)-1, "Erster Kreuzer");
     // uiPlaceShips(board1, kreuzer2player1, sizeof(kreuzer2player1)-1, "Zweiter Kreuzer");
@@ -101,7 +104,8 @@ int main (void) {
 
     // Schiffe Platzieren
     uiPlaceShips(board2, schlachtschiffplayer2, sizeof(schlachtschiffplayer2)-1, "Schlachtschiff", player2);
-    
+    shipFields2 = countShipFields(board2);
+
     // uiPlaceShips(board2, kreuzer1player2, sizeof(kreuzer1player2)-1, "Erster Kreuzer");
     // uiPlaceShips(board2, kreuzer2player2, sizeof(kreuzer2player2)-1, "Zweiter Kreuzer");
 
@@ -124,11 +128,12 @@ int main (void) {
     while (gameoverBool) {
         if (currentPlayer == 1) {
             do {
-                hitBool = shoot(board2, &hitsplayer1, player2, player1); //spieler 1 schießt auf board2 -> enemy board Eingabeparam
-                // printf("\n\n----- DEBUGGING ------- hitBool: %d\n\n");
-                    if(checkWin(hitsplayer1) == true) {
+                printf("\n\n----- DEBUGGING ------- hits vor function pass: %d\n\n", hitsplayer1);
+                hitBool = shoot(board2, &hitsplayer1, player2, player1); // spieler 1 schießt auf board2 -> enemy board Eingabeparam
+                printf("\n\n----- DEBUGGING ------- hits nach function pass: %d\n\n", hitsplayer1);
+                    if(checkWin(&hitsplayer1, shipFields2) == true) {
                         printf("%s hat gewonnen!", player1);
-                        gameoverBool = checkWin(hitsplayer1);
+                        gameoverBool = checkWin(&hitsplayer1, shipFields2);
                     }
             } while (hitBool);
             currentPlayer = 2;
@@ -136,11 +141,12 @@ int main (void) {
             getchar();
         } else if (currentPlayer == 2) {
             do {
-                hitBool = shoot(board1, &hitsplayer2, player1, player2); //spieler 2 schießt auf board1
-                    // printf("\n\n----- DEBUGGING ------- hitBool: %d\n\n");
-                    if (checkWin(hitsplayer2) == true) {
+                printf("\n\n----- DEBUGGING ------- hits vor function pass: %d\n\n", hitsplayer2);
+                hitBool = shoot(board1, &hitsplayer2, player1, player2); // spieler 2 schießt auf board1
+                printf("\n\n----- DEBUGGING ------- hits nach function pass: %d\n\n", hitsplayer2);
+                    if (checkWin(&hitsplayer2, shipFields1) == true) {
                         printf("%s hat gewonnen!", player2);
-                        gameoverBool = checkWin(hitsplayer2);
+                        gameoverBool = checkWin(&hitsplayer2, shipFields1);
                         }
                 } while (hitBool);
             currentPlayer = 1;

@@ -14,6 +14,18 @@ void genBoard(int board1[][10], int board2[][10]) {
     }
 }
 
+int countShipFields(int board[][10]) {
+    int shipFields = 0;
+    for (int y = 0; y < 10; y++) {
+        for (int x = 0; x < 10; x++) {
+            if (board[y][x] == 0) {
+                shipFields++;
+            }
+        }
+    }
+    return shipFields;
+}
+
 /* schiffe in struct initialisieren.
 
 struct beinhaltet:
@@ -43,7 +55,7 @@ bool placeShip(int board[][10], bool ship[], int size, int pos1Y, int pos1X, int
         }
     }
 
-    //If ship is beign set horizontally
+    //If ship is being set horizontally
     if (pos1Y == pos2Y) {
         //Check which is bigger
         if (pos1X > pos2X){
@@ -213,14 +225,14 @@ void showEnemyBoard(int board[][10], char enemyName[]){
     printf("\n");
 }
 
-void uiPlaceShips(int board[][10], bool ship[], int size, char shipName[], char yourName[]) {
-    bool falsePlacement = false;
+void uiPlaceShips(int board[][10], bool ship[], int size, char shipName[], char yourName[], int shipFields) {
+    bool correctPlacement = false;
     char pos1Y;
     int pos1X;
     char pos2Y;
     int pos2X;
 
-    while (!(falsePlacement)) {
+    while (!(correctPlacement)) {
         showBoard(board, yourName);
         // Schiffe Platzieren
         printf("%s platzieren: \n", shipName);
@@ -235,7 +247,7 @@ void uiPlaceShips(int board[][10], bool ship[], int size, char shipName[], char 
         getchar();
         pos2Y = pos2Y - 65;
         pos2X = pos2X - 1;
-        falsePlacement = placeShip(board, ship, size, pos1Y, pos1X, pos2Y, pos2X); // -1 for index matching for arrays
+        correctPlacement = placeShip(board, ship, size, pos1Y, pos1X, pos2Y, pos2X); // -1 for index matching for arrays
     }
 
 }

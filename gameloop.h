@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-bool shoot(int board[][10], int * hits, char enemyName[], char yourName[]);
+bool shoot(int board[][10], int *hits, char enemyName[], char yourName[]);
 int checkHit(int board[][10], int posY, int posX);
-bool checkWin(int hits);
+bool checkWin(int *hits, int shipFields);
 
 #endif
