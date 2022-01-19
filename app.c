@@ -89,8 +89,6 @@ int main (void) {
     uiPlaceShips(board1, uboot4player1, sizeof(uboot4player1)-1, "Viertes U-Boot", player1);
 
     shipFields1 = countShipFields(board1);
-    
-
 
     // nach dem Platzieren
     showBoard(board1, player1);
@@ -125,6 +123,7 @@ int main (void) {
     showBoard(board2, player2);
     printf("\n Enter dr%ccken um zu \"%s\" zu wechseln ", 129, player1);
     getchar();
+    fflush(stdin);
 
     //Clear screen
     system("cls");
