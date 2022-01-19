@@ -4,12 +4,8 @@
 #include "board.h"
 #include "gameloop.h"
 
-
-int main (void) {
-
+void game (char player1[], char player2[], int *abortion) {
     //Definition of Variables ---------------------------
-    char player1[30];
-    char player2[30];
     //[y][x]
     int board1[10][10];
     int board2[10][10];
@@ -48,17 +44,9 @@ int main (void) {
     //if ship is hit it is 1 otherwise it is 0
     //Board is -1 if no ship is on the space
 
-    splashScreen("title.txt");
-    getchar();
-    system("cls");
-
-    //Pre Loop ------------------------------------------
-    printf("Name Spieler 1: ");
-    scanf(" %[^\n]", player1);
-    getchar();
-    printf("\nName Spieler 2: ");
-    scanf(" %[^\n]", player2);
-    getchar();
+    // splashScreen("title.txt");
+    // getchar();
+    // system("cls");
 
     genBoard(board1, board2);
     // show empty board
@@ -109,7 +97,6 @@ int main (void) {
 
     shipFields2 = countShipFields(board2);
     
-
     // nach dem Platzieren
     showBoard(board2, player2);
     printf("\n Enter dr%ccken um zu \"%s\" zu wechseln ", 129, player1);
@@ -166,8 +153,41 @@ int main (void) {
             printf("ERROR player identifier mismatch\n");
         }
     }
-
+    printf("[-1] Spiel beenden  | [andere Taste] Erneut spielen\n");
+    scanf("%d", abortion);
+    getchar();
+    system("cls");
     splashScreen("title.txt"); // end screen oder (viel sinnvoller) erneut spielen direkt möglich machen
     getchar();
+    system("cls");
+}
+
+
+int main (void) {
+
+    //Definition of Variables ---------------------------
+    char player1[30];
+    char player2[30];
+
+    int abortion = 0;
+    //if ship is hit it is 1 otherwise it is 0
+    //Board is -1 if no ship is on the space
+
+    splashScreen("title.txt");
+    getchar();
+    system("cls");
+
+    //Pre Loop ------------------------------------------
+    printf("Name Spieler 1: ");
+    scanf(" %[^\n]", player1);
+    getchar();
+    printf("\nName Spieler 2: ");
+    scanf(" %[^\n]", player2);
+    getchar();
+
+    while (abortion != -1) {
+        game(player1, player2, &abortion);
+    }
+    
     return 0;
 }
