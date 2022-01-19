@@ -12,7 +12,6 @@ int checkHit(int board[][10], int posY, int posX){
     // -2 = Feld leer bereits beschossen
     // 0 = Feld mit Schiff
     // -1 = Feld leer
-
     int posValue = board[posY][posX];
 
     switch(posValue) {
@@ -35,10 +34,18 @@ int checkHit(int board[][10], int posY, int posX){
     }
 }
 
-bool shoot(int board[][10], int *hits, char enemyName[], char yourName[]){ // gegnerisches Board und Trefferanzahl aktueller Spieler
-    int checkHitInt;
+bool checkWin(int *hits, int shipFields){
+    if (*hits == shipFields){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool shoot(int board[][10], int *hits, int shipFields, char enemyName[], char yourName[]){ // gegnerisches Board und Trefferanzahl aktueller Spieler
+    int checkHitInt = -1;
     int posX;
-    int posY;
+    char posY; //Changed to char because of int convertion
 
     showEnemyBoard(board, enemyName);
    
@@ -48,7 +55,6 @@ bool shoot(int board[][10], int *hits, char enemyName[], char yourName[]){ // ge
         getchar();
         posY = posY - 65;
         posX = posX - 1;
-
         checkHitInt = checkHit(board, posY, posX);
         // printf("\n\n----- DEBUGGING ------- hitValue: %d\tposValue: %d\n\n", checkHitInt, board[posY][posX]);
         
@@ -58,8 +64,14 @@ bool shoot(int board[][10], int *hits, char enemyName[], char yourName[]){ // ge
         printf("Schiff getroffen!\n");
         board[posY][posX] = 1;
         *hits += 1;
+        
+        if (checkWin(hits, shipFields) == true){
+            return false; //So that the function does not return true and the hitBool of the app main function does not repeat
+        }
+
         // printf("\n\nhits (pointer): %d\n\n", *hits);
         // printf("\n\nhits (value): %d\n\n", hits);
+
         return true; // ist true damit man nochmal schießen kann
     } else if(checkHitInt == false) {
             printf("Vorbei geschossen!\n");
@@ -83,11 +95,3 @@ gegnerisches beschossenes feld anzeigen, (Schiff versenkt printf)
 
 
 */
-
-bool checkWin(int *hits, int shipFields){
-    if (*hits == shipFields){
-        return true;
-    } else {
-        return false;
-    }
-}

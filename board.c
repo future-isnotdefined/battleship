@@ -225,7 +225,7 @@ void showEnemyBoard(int board[][10], char enemyName[]){
     printf("\n");
 }
 
-void uiPlaceShips(int board[][10], bool ship[], int size, char shipName[], char yourName[], int shipFields) {
+void uiPlaceShips(int board[][10], bool ship[], int size, char shipName[], char yourName[]) {
     bool correctPlacement = false;
     char pos1Y;
     int pos1X;
