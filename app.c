@@ -76,7 +76,6 @@ int main (void) {
     //Player1
     uiPlaceShips(board1, schlachtschiffplayer1, sizeof(schlachtschiffplayer1)-1, "Schlachtschiff", player1);
 
-    /*
     uiPlaceShips(board1, kreuzer1player1, sizeof(kreuzer1player1)-1, "Erster Kreuzer", player1);
     uiPlaceShips(board1, kreuzer2player1, sizeof(kreuzer2player1)-1, "Zweiter Kreuzer", player1);
 
@@ -88,7 +87,6 @@ int main (void) {
     uiPlaceShips(board1, uboot2player1, sizeof(uboot2player1)-1, "Zweites U-Boot", player1);
     uiPlaceShips(board1, uboot3player1, sizeof(uboot3player1)-1, "Drittes U-Boot", player1);
     uiPlaceShips(board1, uboot4player1, sizeof(uboot4player1)-1, "Viertes U-Boot", player1);
-    */
 
     shipFields1 = countShipFields(board1);
     
@@ -108,7 +106,6 @@ int main (void) {
     // Schiffe Platzieren
     uiPlaceShips(board2, schlachtschiffplayer2, sizeof(schlachtschiffplayer2)-1, "Schlachtschiff", player2);
 
-    /*
     uiPlaceShips(board2, kreuzer1player2, sizeof(kreuzer1player2)-1, "Erster Kreuzer", player2);
     uiPlaceShips(board2, kreuzer2player2, sizeof(kreuzer2player2)-1, "Zweiter Kreuzer", player2);
 
@@ -120,7 +117,6 @@ int main (void) {
     uiPlaceShips(board2, uboot2player2, sizeof(uboot2player2)-1, "Zweites U-Boot", player2);
     uiPlaceShips(board2, uboot3player2, sizeof(uboot3player2)-1, "Drittes U-Boot", player2);
     uiPlaceShips(board2, uboot4player2, sizeof(uboot4player2)-1, "Viertes U-Boot", player2);
-    */
 
     shipFields2 = countShipFields(board2);
     
