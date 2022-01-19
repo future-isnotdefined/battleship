@@ -252,9 +252,19 @@ void uiPlaceShips(int board[][10], bool ship[], int size, char shipName[], char 
 
 }
 
-void print_image(FILE *fptr) {
+void printImage(FILE *fptr) {
     char read_string[MAX_LEN];
  
     while(fgets(read_string,sizeof(read_string),fptr) != NULL)
         printf("%s",read_string);
+}
+
+int splashScreen(char *filename) {
+    FILE *fptr = NULL;
+    if((fptr = fopen(filename,"r")) == NULL) {
+        fprintf(stderr,"error opening %s\n",filename);
+        return 1;
+    } 
+    printImage(fptr);
+    fclose(fptr);
 }

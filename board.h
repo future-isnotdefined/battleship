@@ -7,6 +7,7 @@ int countShipFields(int board[][10]);
 void showBoard(int board[][10], char yourName[]);
 void showEnemyBoard(int board[][10], char enemyName[]);
 void uiPlaceShips(int board[][10], bool ship[], int size, char shipName[], char yourName[]);
-void print_image(FILE *fptr);
+void printImage(FILE *fptr);
+int splashScreen(char *filename);
 
 #endif
