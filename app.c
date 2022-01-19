@@ -44,28 +44,22 @@ void game (char player1[], char player2[], int *abortion) {
     //if ship is hit it is 1 otherwise it is 0
     //Board is -1 if no ship is on the space
 
-    // splashScreen("title.txt");
-    // getchar();
-    // system("cls");
-
     genBoard(board1, board2);
-    // show empty board
-    // showBoard(board1);
 
     //Player1
     uiPlaceShips(board1, schlachtschiffplayer1, sizeof(schlachtschiffplayer1)-1, "Schlachtschiff", player1);
 
-    // uiPlaceShips(board1, kreuzer1player1, sizeof(kreuzer1player1)-1, "Erster Kreuzer", player1);
-    // uiPlaceShips(board1, kreuzer2player1, sizeof(kreuzer2player1)-1, "Zweiter Kreuzer", player1);
+    uiPlaceShips(board1, kreuzer1player1, sizeof(kreuzer1player1)-1, "Erster Kreuzer", player1);
+    uiPlaceShips(board1, kreuzer2player1, sizeof(kreuzer2player1)-1, "Zweiter Kreuzer", player1);
 
-    // uiPlaceShips(board1, zerstoerer1player1, sizeof(zerstoerer1player1)-1, "Erster Zerstoerer", player1);
-    // uiPlaceShips(board1, zerstoerer2player1, sizeof(zerstoerer2player1)-1, "Zweiter Zerstoerer", player1);
-    // uiPlaceShips(board1, zerstoerer3player1, sizeof(zerstoerer3player1)-1, "Dritter Zerstoerer", player1);
+    uiPlaceShips(board1, zerstoerer1player1, sizeof(zerstoerer1player1)-1, "Erster Zerstoerer", player1);
+    uiPlaceShips(board1, zerstoerer2player1, sizeof(zerstoerer2player1)-1, "Zweiter Zerstoerer", player1);
+    uiPlaceShips(board1, zerstoerer3player1, sizeof(zerstoerer3player1)-1, "Dritter Zerstoerer", player1);
 
-    // uiPlaceShips(board1, uboot1player1, sizeof(uboot1player1)-1, "Erstes U-Boot", player1);
-    // uiPlaceShips(board1, uboot2player1, sizeof(uboot2player1)-1, "Zweites U-Boot", player1);
-    // uiPlaceShips(board1, uboot3player1, sizeof(uboot3player1)-1, "Drittes U-Boot", player1);
-    // uiPlaceShips(board1, uboot4player1, sizeof(uboot4player1)-1, "Viertes U-Boot", player1);
+    uiPlaceShips(board1, uboot1player1, sizeof(uboot1player1)-1, "Erstes U-Boot", player1);
+    uiPlaceShips(board1, uboot2player1, sizeof(uboot2player1)-1, "Zweites U-Boot", player1);
+    uiPlaceShips(board1, uboot3player1, sizeof(uboot3player1)-1, "Drittes U-Boot", player1);
+    uiPlaceShips(board1, uboot4player1, sizeof(uboot4player1)-1, "Viertes U-Boot", player1);
 
     shipFields1 = countShipFields(board1);
 
@@ -83,17 +77,17 @@ void game (char player1[], char player2[], int *abortion) {
     // Schiffe Platzieren
     uiPlaceShips(board2, schlachtschiffplayer2, sizeof(schlachtschiffplayer2)-1, "Schlachtschiff", player2);
 
-    // uiPlaceShips(board2, kreuzer1player2, sizeof(kreuzer1player2)-1, "Erster Kreuzer", player2);
-    // uiPlaceShips(board2, kreuzer2player2, sizeof(kreuzer2player2)-1, "Zweiter Kreuzer", player2);
+    uiPlaceShips(board2, kreuzer1player2, sizeof(kreuzer1player2)-1, "Erster Kreuzer", player2);
+    uiPlaceShips(board2, kreuzer2player2, sizeof(kreuzer2player2)-1, "Zweiter Kreuzer", player2);
 
-    // uiPlaceShips(board2, zerstoerer1player2, sizeof(zerstoerer1player2)-1, "Erster Zerstoerer", player2);
-    // uiPlaceShips(board2, zerstoerer2player2, sizeof(zerstoerer2player2)-1, "Zweiter Zerstoerer", player2);
-    // uiPlaceShips(board2, zerstoerer3player2, sizeof(zerstoerer3player2)-1, "Dritter Zerstoerer", player2);
+    uiPlaceShips(board2, zerstoerer1player2, sizeof(zerstoerer1player2)-1, "Erster Zerstoerer", player2);
+    uiPlaceShips(board2, zerstoerer2player2, sizeof(zerstoerer2player2)-1, "Zweiter Zerstoerer", player2);
+    uiPlaceShips(board2, zerstoerer3player2, sizeof(zerstoerer3player2)-1, "Dritter Zerstoerer", player2);
 
-    // uiPlaceShips(board2, uboot1player2, sizeof(uboot1player2)-1, "Erstes U-Boot", player2);
-    // uiPlaceShips(board2, uboot2player2, sizeof(uboot2player2)-1, "Zweites U-Boot", player2);
-    // uiPlaceShips(board2, uboot3player2, sizeof(uboot3player2)-1, "Drittes U-Boot", player2);
-    // uiPlaceShips(board2, uboot4player2, sizeof(uboot4player2)-1, "Viertes U-Boot", player2);
+    uiPlaceShips(board2, uboot1player2, sizeof(uboot1player2)-1, "Erstes U-Boot", player2);
+    uiPlaceShips(board2, uboot2player2, sizeof(uboot2player2)-1, "Zweites U-Boot", player2);
+    uiPlaceShips(board2, uboot3player2, sizeof(uboot3player2)-1, "Drittes U-Boot", player2);
+    uiPlaceShips(board2, uboot4player2, sizeof(uboot4player2)-1, "Viertes U-Boot", player2);
 
     shipFields2 = countShipFields(board2);
     
@@ -154,7 +148,7 @@ void game (char player1[], char player2[], int *abortion) {
         }
     }
     printf("[-1] Spiel beenden  | [andere Taste] Erneut spielen\n");
-    scanf("%d", abortion);
+    scanf(" %d", abortion);
     getchar();
     system("cls");
     splashScreen("title.txt"); // end screen oder (viel sinnvoller) erneut spielen direkt möglich machen
