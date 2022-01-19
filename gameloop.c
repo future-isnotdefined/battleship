@@ -42,7 +42,7 @@ bool checkWin(int *hits, int shipFields){
     }
 }
 
-bool shoot(int board[][10], int *hits, int shipFields, char enemyName[], char yourName[]){ // gegnerisches Board und Trefferanzahl aktueller Spieler
+bool shoot(int ownboard[][10], int board[][10], int *hits, int shipFields, char enemyName[], char yourName[]){ // gegnerisches Board und Trefferanzahl aktueller Spieler
     int checkHitInt = -1;
     int posX;
     char posY; //Changed to char because of int convertion
@@ -51,12 +51,19 @@ bool shoot(int board[][10], int *hits, int shipFields, char enemyName[], char yo
    
     do {
         printf("Koordinaten f%cr Schuss angeben, Kapit%cn \"%s\"!\n", 129, 132, yourName);
+        printf("(Press $0 for showing your own board)\n");
         scanf(" %c %d", &posY, &posX);
+        if (posY == '$' && posX != 42){
+            showBoard(ownboard, yourName);
+        } else if (posY == '$' && posX == 42){
+            showBoard(board, enemyName);
+        } else {
         getchar();
-        posY = posY - 65;
-        posX = posX - 1;
-        checkHitInt = checkHit(board, posY, posX);
-        // printf("\n\n----- DEBUGGING ------- hitValue: %d\tposValue: %d\n\n", checkHitInt, board[posY][posX]);
+            posY = posY - 65;
+            posX = posX - 1;
+            checkHitInt = checkHit(board, posY, posX);
+            // printf("\n\n----- DEBUGGING ------- hitValue: %d\tposValue: %d\n\n", checkHitInt, board[posY][posX]);
+        }
         
     } while(checkHitInt == -1);
 

@@ -75,8 +75,8 @@ int main (void) {
 
     //Player1
     uiPlaceShips(board1, schlachtschiffplayer1, sizeof(schlachtschiffplayer1)-1, "Schlachtschiff", player1);
-    shipFields1 = countShipFields(board1);
 
+    /*
     uiPlaceShips(board1, kreuzer1player1, sizeof(kreuzer1player1)-1, "Erster Kreuzer", player1);
     uiPlaceShips(board1, kreuzer2player1, sizeof(kreuzer2player1)-1, "Zweiter Kreuzer", player1);
 
@@ -88,6 +88,9 @@ int main (void) {
     uiPlaceShips(board1, uboot2player1, sizeof(uboot2player1)-1, "Zweites U-Boot", player1);
     uiPlaceShips(board1, uboot3player1, sizeof(uboot3player1)-1, "Drittes U-Boot", player1);
     uiPlaceShips(board1, uboot4player1, sizeof(uboot4player1)-1, "Viertes U-Boot", player1);
+    */
+
+    shipFields1 = countShipFields(board1);
     
 
 
@@ -104,8 +107,8 @@ int main (void) {
 
     // Schiffe Platzieren
     uiPlaceShips(board2, schlachtschiffplayer2, sizeof(schlachtschiffplayer2)-1, "Schlachtschiff", player2);
-    shipFields2 = countShipFields(board2);
 
+    /*
     uiPlaceShips(board2, kreuzer1player2, sizeof(kreuzer1player2)-1, "Erster Kreuzer", player2);
     uiPlaceShips(board2, kreuzer2player2, sizeof(kreuzer2player2)-1, "Zweiter Kreuzer", player2);
 
@@ -117,6 +120,9 @@ int main (void) {
     uiPlaceShips(board2, uboot2player2, sizeof(uboot2player2)-1, "Zweites U-Boot", player2);
     uiPlaceShips(board2, uboot3player2, sizeof(uboot3player2)-1, "Drittes U-Boot", player2);
     uiPlaceShips(board2, uboot4player2, sizeof(uboot4player2)-1, "Viertes U-Boot", player2);
+    */
+
+    shipFields2 = countShipFields(board2);
     
 
     // nach dem Platzieren
@@ -133,7 +139,7 @@ int main (void) {
     while (gameoverBool) {
         if (currentPlayer == 1) {
             do {
-                hitBool = shoot(board2, &hitsplayer1, shipFields2, player2, player1); // spieler 1 schießt auf board2 -> enemy board Eingabeparam
+                hitBool = shoot(board1, board2, &hitsplayer1, shipFields2, player2, player1); // spieler 1 schießt auf board2 -> enemy board Eingabeparam
                 if(checkWin(&hitsplayer1, shipFields2) == true) {
                     printf("%s hat gewonnen!", player1);
                     getchar();
@@ -147,7 +153,7 @@ int main (void) {
             system("cls");
         } else if (currentPlayer == 2) {
             do {
-                hitBool = shoot(board1, &hitsplayer2, shipFields1, player1, player2); // spieler 2 schießt auf board1
+                hitBool = shoot(board2, board1, &hitsplayer2, shipFields1, player1, player2); // spieler 2 schießt auf board1
                 if (checkWin(&hitsplayer2, shipFields1) == true) {
                     printf("%s hat gewonnen!", player2);
                     getchar();
