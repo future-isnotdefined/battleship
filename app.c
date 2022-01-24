@@ -24,6 +24,8 @@ void game (char player1[], char player2[], int *abortion) {
     bool uboot2player1[2];
     bool uboot3player1[2];
     bool uboot4player1[2];
+    bool shipsP1[10] = {schlachtschiffplayer1, kreuzer1player1, kreuzer2player1, zerstoerer1player1, zerstoerer2player1, zerstoerer3player1, uboot1player1, uboot2player1, uboot3player1, uboot4player1};
+    // struct alarm... ^^
     int hitsplayer1  = 0;
     int shipFields1;
 
@@ -38,6 +40,7 @@ void game (char player1[], char player2[], int *abortion) {
     bool uboot2player2[2];
     bool uboot3player2[2];
     bool uboot4player2[2];
+    bool shipsP2[10] = {schlachtschiffplayer2, kreuzer1player2, kreuzer2player2, zerstoerer1player2, zerstoerer2player2, zerstoerer3player2, uboot1player2, uboot2player2, uboot3player2, uboot4player2};
     int hitsplayer2 = 0;
     int shipFields2;
 

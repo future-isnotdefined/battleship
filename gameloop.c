@@ -71,6 +71,19 @@ bool shoot(int ownboard[][10], int board[][10], int *hits, int shipFields, char 
         printf("Schiff getroffen!\n");
         board[posY][posX] = 1;
         *hits += 1;
+
+        // dreckige lösung: alle schiff strukturen durchlaufen (optimal: watch for change: alles 1? danach zustand speichern).
+        // problem: ALLE schiff strukturen müssen accessible in funktion sein
+            // idee: alle schiffe (von einem spieler) in einen array packen und dann leichter übergeben
+        // wenn update = schiff struktur voll getroffen (alle felder 1)
+
+        // --- bis hier: bereits umgesetzt in watchdog.c -> testing könnt ihr euch rauskopieren ---
+        // aber "watch for change" fehlt noch.
+        // sollte möglich sein über: "alten" zustand speichern, alle arrays durchlaufen, neuen zustand mit altem vergleichen (reminder: pi und maschinengenauigkeit),
+        // bei änderungen nur die differenz ausgeben (nur das neu versenkte schiff)...
+
+        //     => print "shipName" versenkt! (nur einmal bei change)
+            // => board Variablen (bei change) updaten (board[schiffelder] = 2), um versenkt zu zeigen
         
         if (checkWin(hits, shipFields) == true){
             return false; //So that the function does not return true and the hitBool of the app main function does not repeat
