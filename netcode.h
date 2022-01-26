@@ -10,6 +10,6 @@
 #include <pthread.h>
 
 void sending(int serverPort, char targetAddress[], char buffer[], int sizeofBuffer);
-void testreceive(int serverPort, char ownAddress[], char buffer[], int sizeofBuffer);
+void receive(int serverPort, char ownAddress[], char buffer[], int sizeofBuffer);
 
 #endif

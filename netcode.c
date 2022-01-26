@@ -37,7 +37,7 @@ void sending(int serverPort, char targetAddress[], char buffer[], int sizeofBuff
     close(sock);
 }
 
-void testreceive(int serverPort, char ownAddress[], char buffer[], int sizeofBuffer)//targetAddress[16]
+void receive(int serverPort, char ownAddress[], char buffer[], int sizeofBuffer)//targetAddress[16]
 {
 
     //IN PEER WE TRUST
