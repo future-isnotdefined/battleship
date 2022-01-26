@@ -54,17 +54,17 @@ void game (char player1[], int *abortion) {
     //Player1
     uiPlaceShips(board1, schlachtschiffplayer1, sizeof(schlachtschiffplayer1)-1, "Schlachtschiff", player1);
 
-    // uiPlaceShips(board1, kreuzer1player1, sizeof(kreuzer1player1)-1, "Erster Kreuzer", player1);
-    // uiPlaceShips(board1, kreuzer2player1, sizeof(kreuzer2player1)-1, "Zweiter Kreuzer", player1);
+    uiPlaceShips(board1, kreuzer1player1, sizeof(kreuzer1player1)-1, "Erster Kreuzer", player1);
+    uiPlaceShips(board1, kreuzer2player1, sizeof(kreuzer2player1)-1, "Zweiter Kreuzer", player1);
 
-    // uiPlaceShips(board1, zerstoerer1player1, sizeof(zerstoerer1player1)-1, "Erster Zerstoerer", player1);
-    // uiPlaceShips(board1, zerstoerer2player1, sizeof(zerstoerer2player1)-1, "Zweiter Zerstoerer", player1);
-    // uiPlaceShips(board1, zerstoerer3player1, sizeof(zerstoerer3player1)-1, "Dritter Zerstoerer", player1);
+    uiPlaceShips(board1, zerstoerer1player1, sizeof(zerstoerer1player1)-1, "Erster Zerstoerer", player1);
+    uiPlaceShips(board1, zerstoerer2player1, sizeof(zerstoerer2player1)-1, "Zweiter Zerstoerer", player1);
+    uiPlaceShips(board1, zerstoerer3player1, sizeof(zerstoerer3player1)-1, "Dritter Zerstoerer", player1);
 
-    // uiPlaceShips(board1, uboot1player1, sizeof(uboot1player1)-1, "Erstes U-Boot", player1);
-    // uiPlaceShips(board1, uboot2player1, sizeof(uboot2player1)-1, "Zweites U-Boot", player1);
-    // uiPlaceShips(board1, uboot3player1, sizeof(uboot3player1)-1, "Drittes U-Boot", player1);
-    // uiPlaceShips(board1, uboot4player1, sizeof(uboot4player1)-1, "Viertes U-Boot", player1);
+    uiPlaceShips(board1, uboot1player1, sizeof(uboot1player1)-1, "Erstes U-Boot", player1);
+    uiPlaceShips(board1, uboot2player1, sizeof(uboot2player1)-1, "Zweites U-Boot", player1);
+    uiPlaceShips(board1, uboot3player1, sizeof(uboot3player1)-1, "Drittes U-Boot", player1);
+    uiPlaceShips(board1, uboot4player1, sizeof(uboot4player1)-1, "Viertes U-Boot", player1);
 
     shipFields1 = countShipFields(board1);
 
@@ -138,7 +138,6 @@ void game (char player1[], int *abortion) {
     getchar();
     system("clear");
     splashScreen("title.txt"); // end screen oder (viel sinnvoller) erneut spielen direkt möglich machen
-    getchar();
     getchar();
     system("clear");
 }
