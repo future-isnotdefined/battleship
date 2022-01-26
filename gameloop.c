@@ -79,7 +79,7 @@ int shoot(char buffer[], int sizeofBuffer, char receieveBuffer[], int sizeofRece
             sprintf(buffer, "%d %d", posY, posX);
             sending(port, opponentAddress, buffer, sizeofBuffer);
             receive(port, ownAddress, receieveBuffer, sizeofReceieveBuffer);
-            sscanf(receieveBuffer, "%d", checkHitInt);
+            sscanf(receieveBuffer, "%d", &checkHitInt);
             if (checkHitInt == -1){
                 printf("Kommander das ist nicht zulässig!\n");
             }

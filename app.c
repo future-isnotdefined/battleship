@@ -81,7 +81,7 @@ void game (char player1[], int *abortion) {
 
     //Handling who goes first
     printf("Bist du Spieler 1 oder Spieler 2?");
-    scanf("%d", currentPlayer);
+    scanf("%d", &currentPlayer);
     getchar();
     if (currentPlayer == 1){
         strcpy(buffer, player1);
