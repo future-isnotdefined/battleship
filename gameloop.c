@@ -68,6 +68,7 @@ int shoot(char buffer[], int sizeofBuffer, char receieveBuffer[], int sizeofRece
     char posY; //Changed to char because of int convertion
 
     do {
+        showEnemyBoard(enemyboard, enemyPlayer);
         printf("Koordinaten f%cr Schuss angeben, Kapit%cn \"%s\"!\n", 129, 132, yourName);
         printf("(Press $0 for showing your own board)\n");
         scanf(" %c %d", &posY, &posX);

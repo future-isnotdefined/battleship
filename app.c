@@ -108,8 +108,10 @@ void game (char player1[], int *abortion) {
     //Game Loop -----------------------------------------
     while (gameoverBool) {
         // printf("\n\n----- DEBUGGING ------- hitsplayer1 vor function pass: %d\n\n", hitsplayer1);
-        hitBool = shoot(buffer, sizeofBuffer, receieveBuffer, sizeofreceieveBuffer, ownAddress, port, opponentAddress, board2, board1, &hitsplayer1, shipFields1, player1, player2); // spieler 1 schießt auf board2 -> enemy board Eingabeparam
-        // printf("\n\n----- DEBUGGING ------- hits nach function pass: %d\n\n", hitsplayer1);
+        do
+        {
+            hitBool = shoot(buffer, sizeofBuffer, receieveBuffer, sizeofreceieveBuffer, ownAddress, port, opponentAddress, board2, board1, &hitsplayer1, shipFields1, player1, player2); // spieler 1 schießt auf board2 -> enemy board Eingabeparam
+            // printf("\n\n----- DEBUGGING ------- hits nach function pass: %d\n\n", hitsplayer1);
             if(hitBool == 2) {
                 printf("-----   %s hat gewonnen!   -----\n", player1);
                 showBoard(board1, player1);
@@ -118,14 +120,17 @@ void game (char player1[], int *abortion) {
                 getchar();
                 gameoverBool = false;
             }
-            hitBool = receiveHit(ownAddress,port,opponentAddress, board1, &hitsplayer1, shipFields1, buffer, sizeofBuffer, sizeofreceieveBuffer, receieveBuffer);
-            if(hitBool == 2) {
-                printf("-----   %s hat gewonnen!   -----\n", player2);
-                showBoard(board1, player1);
-                printf("\n\n");
-                showBoard(board2, player2);
-                getchar();
-                gameoverBool = false;
+        } while (hitBool == 1);
+            if (hitBool != 2) {
+                hitBool = receiveHit(ownAddress,port,opponentAddress, board1, &hitsplayer1, shipFields1, buffer, sizeofBuffer, sizeofreceieveBuffer, receieveBuffer);
+                if(hitBool == 2) {
+                    printf("-----   %s hat gewonnen!   -----\n", player2);
+                    showBoard(board1, player1);
+                    printf("\n\n");
+                    showBoard(board2, player2);
+                    getchar();
+                    gameoverBool = false;
+                }
             }
     }
     printf("[-1] Spiel beenden  | [andere Taste] Erneut spielen\n");
