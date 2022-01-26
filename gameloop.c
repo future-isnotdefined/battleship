@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "board.h"
+#include "netcode.h"
 
 
 //Functions
@@ -42,66 +43,44 @@ bool checkWin(int *hits, int shipFields){
     }
 }
 
-bool shoot(int ownboard[][10], int board[][10], int *hits, int shipFields, char enemyName[], char yourName[]){ // gegnerisches Board und Trefferanzahl aktueller Spieler
+bool shoot(int server_fd, int port, char opponentAddress[], int enemyboard[][10], int ownboard[][10], int *hits, int shipFields,  char yourName[]){ // gegnerisches Board und Trefferanzahl aktueller Spieler
     int checkHitInt = -1;
     int posX;
     char posY; //Changed to char because of int convertion
+    char buffer[100];
+    char * receieveBuffer;
 
-    showEnemyBoard(board, enemyName);
+    //showEnemyBoard(board, enemyName);
    
-    do {
-        printf("Koordinaten f%cr Schuss angeben, Kapit%cn \"%s\"!\n", 129, 132, yourName);
-        printf("(Press $0 for showing your own board)\n");
-        scanf(" %c %d", &posY, &posX);
-        if (posY == '$' && posX != 42){
-            showBoard(ownboard, yourName);
-        } else if (posY == '$' && posX == 42){
-            showBoard(board, enemyName);
-        } else {
+    printf("Koordinaten f%cr Schuss angeben, Kapit%cn \"%s\"!\n", 129, 132, yourName);
+    printf("(Press $0 for showing your own board)\n");
+    scanf(" %c %d", &posY, &posX);
+    if (posY == '$' && posX != 42){
+        showBoard(ownboard, yourName);
+    } else if (posY == '$' && posX == 42){
+        //showBoard(enemyboard, enemyName);
+    } else {
         getchar();
-            posY = posY - 65;
-            posX = posX - 1;
-            checkHitInt = checkHit(board, posY, posX);
-            // printf("\n\n----- DEBUGGING ------- hitValue: %d\tposValue: %d\n\n", checkHitInt, board[posY][posX]);
+        posY = posY - 65;
+        posX = posX - 1;
+        sprintf(buffer, "%d %d", posY, posX);
+        sending(port, opponentAddress, buffer, sizeof(buffer));
+        //checkHitInt = checkHit(board, posY, posX);
+        while (receieveBuffer == 0){
+            sleep(2);
+            receiving(server_fd, receieveBuffer);
+            printf("%s \n",buffer);
         }
-        
-    } while(checkHitInt == -1);
-
-    if (checkHitInt == true) {
-        printf("Schiff getroffen!\n");
-        board[posY][posX] = 1;
-        *hits += 1;
-
-        // dreckige lösung: alle schiff strukturen durchlaufen (optimal: watch for change: alles 1? danach zustand speichern).
-        // problem: ALLE schiff strukturen müssen accessible in funktion sein
-            // idee: alle schiffe (von einem spieler) in einen array packen und dann leichter übergeben
-        // wenn update = schiff struktur voll getroffen (alle felder 1)
-
-        // --- bis hier: bereits umgesetzt in watchdog.c -> testing könnt ihr euch rauskopieren ---
-        // aber "watch for change" fehlt noch.
-        // sollte möglich sein über: "alten" zustand speichern, alle arrays durchlaufen, neuen zustand mit altem vergleichen (reminder: pi und maschinengenauigkeit),
-        // bei änderungen nur die differenz ausgeben (nur das neu versenkte schiff)...
-
-        //     => print "shipName" versenkt! (nur einmal bei change)
-            // => board Variablen (bei change) updaten (board[schiffelder] = 2), um versenkt zu zeigen
-        
-        if (checkWin(hits, shipFields) == true){
-            return false; //So that the function does not return true and the hitBool of the app main function does not repeat
+        *receieveBuffer = {0};
+        while (receieveBuffer == 0){
+            sleep(2);
+            receiving(server_fd, receieveBuffer);
+            printf("%s \n",buffer);
         }
-
-        // printf("\n\nhits (pointer): %d\n\n", *hits);
-        // printf("\n\nhits (value): %d\n\n", hits);
-
-        return true; // ist true damit man nochmal schießen kann
-    } else if(checkHitInt == false) {
-            printf("Vorbei geschossen!\n");
-            board[posY][posX] = -2;
-            showEnemyBoard(board, enemyName);
-            // printf("\n\n----- DEBUGGING ------- hier muesste rausgesprungen werden (checkHitInt: %d). \n\n", checkHitInt);
-            return false; // nicht nochmal schießen bei 0 && -1
-        } else {
-            return false; 
-       }
+        getchar();
+        
+    }
+    
 }
 
 /*

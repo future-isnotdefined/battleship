@@ -11,11 +11,8 @@
 
 
 
-void sending();
-void receiving(int server_fd);
-void *receive_thread(void *server_fd);
 
-int initializePorts(int Port, char ownAddress[]){ //ownAddress[15]
+int initializePorts(int port, char ownAddress[]){ //ownAddress[15]
 
     //Initialize server ports start
     int server_fd, new_socket, valread;
@@ -33,7 +30,7 @@ int initializePorts(int Port, char ownAddress[]){ //ownAddress[15]
     address.sin_family = AF_INET;
     printf("\nEnter your own IP:");
     address.sin_addr.s_addr = inet_addr(ownAddress);
-    address.sin_port = htons(Port);
+    address.sin_port = htons(port);
 
     //Printed the server socket addr and port
     printf("IP address is: %s\n", inet_ntoa(address.sin_addr));
@@ -50,8 +47,8 @@ int initializePorts(int Port, char ownAddress[]){ //ownAddress[15]
         exit(EXIT_FAILURE);
     }
     int ch;
-    pthread_t tid;
-    pthread_create(&tid, NULL, &receive_thread, &server_fd); //Creating thread to keep receiving message in real time
+    //pthread_t tid;
+    //pthread_create(&tid, NULL, &receive_thread, &server_fd); //Creating thread to keep receiving message in real time
     //Finished Server Port creation
 
     //Close the server when game is over
@@ -95,16 +92,15 @@ void *receive_thread(void *server_fd)
     while (1)
     {
         sleep(2);
-        receiving(s_fd);
+        //receiving(s_fd);
     }
 }
 
 //Receiving messages on our port
-void receiving(int server_fd)
+void receiving(int server_fd, char * buffer)
 {
     struct sockaddr_in address;
     int valread;
-    char buffer[2000] = {0};
     int addrlen = sizeof(address);
     fd_set current_sockets, ready_sockets;
 
@@ -112,44 +108,37 @@ void receiving(int server_fd)
     FD_ZERO(&current_sockets);
     FD_SET(server_fd, &current_sockets);
     int k = 0;
-    while (1)
+    k++;
+    ready_sockets = current_sockets;
+
+    if (select(FD_SETSIZE, &ready_sockets, NULL, NULL, NULL) < 0)
     {
-        k++;
-        ready_sockets = current_sockets;
+        perror("Error");
+        exit(EXIT_FAILURE);
+    }
 
-        if (select(FD_SETSIZE, &ready_sockets, NULL, NULL, NULL) < 0)
+    for (int i = 0; i < FD_SETSIZE; i++)
+    {
+        if (FD_ISSET(i, &ready_sockets))
         {
-            perror("Error");
-            exit(EXIT_FAILURE);
-        }
 
-        for (int i = 0; i < FD_SETSIZE; i++)
-        {
-            if (FD_ISSET(i, &ready_sockets))
+            if (i == server_fd)
             {
+                int client_socket;
 
-                if (i == server_fd)
+                if ((client_socket = accept(server_fd, (struct sockaddr *)&address,
+                                            (socklen_t *)&addrlen)) < 0)
                 {
-                    int client_socket;
-
-                    if ((client_socket = accept(server_fd, (struct sockaddr *)&address,
-                                                (socklen_t *)&addrlen)) < 0)
-                    {
-                        perror("accept");
-                        exit(EXIT_FAILURE);
-                    }
-                    FD_SET(client_socket, &current_sockets);
+                    perror("accept");
+                    exit(EXIT_FAILURE);
                 }
-                else
-                {
-                    valread = recv(i, buffer, sizeof(buffer), 0);
-                    printf("\n%s\n", buffer);
-                    FD_CLR(i, &current_sockets);
-                }
+                FD_SET(client_socket, &current_sockets);
+            }
+            else
+            {
+                valread = recv(i, buffer, sizeof(buffer), 0);
+                FD_CLR(i, &current_sockets);
             }
         }
-
-        if (k == (FD_SETSIZE * 2))
-            break;
     }
 }
