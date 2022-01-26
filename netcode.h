@@ -9,9 +9,7 @@
 #include <arpa/inet.h>
 #include <pthread.h>
 
-void receiving(int server_fd, char * buffer);
-void *receive_thread(void *server_fd);
-int initializePorts(int Port, char ownAddress[]);
 void sending(int serverPort, char targetAddress[], char buffer[], int sizeofBuffer);
+void testreceive(int serverPort, char ownAddress[], char buffer[], int sizeofBuffer);
 
 #endif

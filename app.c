@@ -4,6 +4,12 @@
 #include "board.h"
 #include "gameloop.h"
 #include "netcode.h"
+#include <unistd.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <string.h>
+#include <arpa/inet.h>
+#include <pthread.h>
 
 void game (char player1[], char player2[], int *abortion) {
     //Definition of Variables ---------------------------
@@ -32,7 +38,6 @@ void game (char player1[], char player2[], int *abortion) {
     int port = 402;
     char ownAddress[16];
     char opponentAddress[16];
-    int socket;
 
     //if ship is hit it is 1 otherwise it is 0
     //Board is -1 if no ship is on the space
@@ -63,8 +68,6 @@ void game (char player1[], char player2[], int *abortion) {
     scanf("%s", ownAddress);
     getchar();
 
-    socket = initializePorts(port, ownAddress);
-
     printf("Gegnerische IP Adresse eingeben\n");
     scanf("%s", opponentAddress);
     getchar();
@@ -72,7 +75,7 @@ void game (char player1[], char player2[], int *abortion) {
     //Game Loop -----------------------------------------
     while (gameoverBool) {
         // printf("\n\n----- DEBUGGING ------- hitsplayer1 vor function pass: %d\n\n", hitsplayer1);
-        hitBool = shoot(socket, port, opponentAddress, board2, board1, &hitsplayer1, shipFields1, player1); // spieler 1 schießt auf board2 -> enemy board Eingabeparam
+        hitBool = shoot(ownAddress, port, opponentAddress, board2, board1, &hitsplayer1, shipFields1, player1); // spieler 1 schießt auf board2 -> enemy board Eingabeparam
         // printf("\n\n----- DEBUGGING ------- hits nach function pass: %d\n\n", hitsplayer1);
             //if(checkWin(&hitsplayer1) == true) {
                 //printf("-----   %s hat gewonnen!   -----\n", player1);
@@ -84,7 +87,6 @@ void game (char player1[], char player2[], int *abortion) {
                 system("cls");
             //}
     }
-    close(socket);
     printf("[-1] Spiel beenden  | [andere Taste] Erneut spielen\n");
     scanf(" %d", abortion);
     getchar();

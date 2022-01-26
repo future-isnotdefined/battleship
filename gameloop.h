@@ -6,7 +6,7 @@
 #include "board.h"
 #include "netcode.h"
 
-bool shoot(int server_fd, int port, char opponentAddress[], int enemyboard[][10], int ownboard[][10], int *hits, int shipFields,  char yourName[]);
+bool shoot(char * ownAddress, int port, char opponentAddress[], int enemyboard[][10], int ownboard[][10], int *hits, int shipFields,  char yourName[]);
 int checkHit(int board[][10], int posY, int posX);
 bool checkWin(int *hits, int shipFields);
 

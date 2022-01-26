@@ -43,12 +43,13 @@ bool checkWin(int *hits, int shipFields){
     }
 }
 
-bool shoot(int server_fd, int port, char opponentAddress[], int enemyboard[][10], int ownboard[][10], int *hits, int shipFields,  char yourName[]){ // gegnerisches Board und Trefferanzahl aktueller Spieler
+bool shoot(char * ownAddress, int port, char opponentAddress[], int enemyboard[][10], int ownboard[][10], int *hits, int shipFields,  char yourName[]){ // gegnerisches Board und Trefferanzahl aktueller Spieler
     int checkHitInt = -1;
     int posX;
     char posY; //Changed to char because of int convertion
     char buffer[100];
-    char * receieveBuffer;
+    char receieveBuffer[100];
+    *receieveBuffer = 0;
 
     //showEnemyBoard(board, enemyName);
    
@@ -66,17 +67,7 @@ bool shoot(int server_fd, int port, char opponentAddress[], int enemyboard[][10]
         sprintf(buffer, "%d %d", posY, posX);
         sending(port, opponentAddress, buffer, sizeof(buffer));
         //checkHitInt = checkHit(board, posY, posX);
-        while (receieveBuffer == 0){
-            sleep(2);
-            receiving(server_fd, receieveBuffer);
-            printf("%s \n",buffer);
-        }
-        *receieveBuffer = {0};
-        while (receieveBuffer == 0){
-            sleep(2);
-            receiving(server_fd, receieveBuffer);
-            printf("%s \n",buffer);
-        }
+        testreceive(port, ownAddress, receieveBuffer, sizeof(buffer));
         getchar();
         
     }

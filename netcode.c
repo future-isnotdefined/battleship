@@ -9,54 +9,6 @@
 #include <arpa/inet.h>
 #include <pthread.h>
 
-
-
-
-int initializePorts(int port, char ownAddress[]){ //ownAddress[15]
-
-    //Initialize server ports start
-    int server_fd, new_socket, valread;
-    struct sockaddr_in address;
-    int k = 0;
-
-    // Creating socket file descriptor
-    if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
-    {
-        perror("socket failed");
-        exit(EXIT_FAILURE);
-    }
-    // Forcefully attaching socket to the port
-
-    address.sin_family = AF_INET;
-    printf("\nEnter your own IP:");
-    address.sin_addr.s_addr = inet_addr(ownAddress);
-    address.sin_port = htons(port);
-
-    //Printed the server socket addr and port
-    printf("IP address is: %s\n", inet_ntoa(address.sin_addr));
-    printf("port is: %d\n", (int)ntohs(address.sin_port));
-
-    if (bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0)
-    {
-        perror("bind failed");
-        exit(EXIT_FAILURE);
-    }
-    if (listen(server_fd, 5) < 0)
-    {
-        perror("listen");
-        exit(EXIT_FAILURE);
-    }
-    int ch;
-    //pthread_t tid;
-    //pthread_create(&tid, NULL, &receive_thread, &server_fd); //Creating thread to keep receiving message in real time
-    //Finished Server Port creation
-
-    //Close the server when game is over
-    //close(server_fd); USE IN MAIN
-
-    return server_fd;
-}
-
 //Sending messages to port
 void sending(int serverPort, char targetAddress[], char buffer[], int sizeofBuffer)//targetAddress[16]
 {
@@ -85,60 +37,53 @@ void sending(int serverPort, char targetAddress[], char buffer[], int sizeofBuff
     close(sock);
 }
 
-//Calling receiving every 2 seconds
-void *receive_thread(void *server_fd)
+void testreceive(int serverPort, char ownAddress[], char buffer[], int sizeofBuffer)//targetAddress[16]
 {
-    int s_fd = *((int *)server_fd);
-    while (1)
-    {
-        sleep(2);
-        //receiving(s_fd);
-    }
-}
 
-//Receiving messages on our port
-void receiving(int server_fd, char * buffer)
-{
+    //IN PEER WE TRUST
+    int server_fd = 0,new_socket, valread;
     struct sockaddr_in address;
-    int valread;
     int addrlen = sizeof(address);
-    fd_set current_sockets, ready_sockets;
+    int opt = 1;
+    char hello[1024] = {0};
 
-    //Initialize my current set
-    FD_ZERO(&current_sockets);
-    FD_SET(server_fd, &current_sockets);
-    int k = 0;
-    k++;
-    ready_sockets = current_sockets;
-
-    if (select(FD_SETSIZE, &ready_sockets, NULL, NULL, NULL) < 0)
+    if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
-        perror("Error");
+        printf("\n Socket creation error \n");
+        return;
+    }
+
+    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT,
+                                                  &opt, sizeof(opt)))
+    {
+        perror("setsockopt");
         exit(EXIT_FAILURE);
     }
 
-    for (int i = 0; i < FD_SETSIZE; i++)
+    address.sin_family = AF_INET;
+    address.sin_addr.s_addr = inet_addr(ownAddress);
+    address.sin_port = htons(serverPort);
+
+    if (bind(server_fd, (struct sockaddr *)&address, 
+                                 sizeof(address))<0)
     {
-        if (FD_ISSET(i, &ready_sockets))
-        {
-
-            if (i == server_fd)
-            {
-                int client_socket;
-
-                if ((client_socket = accept(server_fd, (struct sockaddr *)&address,
-                                            (socklen_t *)&addrlen)) < 0)
-                {
-                    perror("accept");
-                    exit(EXIT_FAILURE);
-                }
-                FD_SET(client_socket, &current_sockets);
-            }
-            else
-            {
-                valread = recv(i, buffer, sizeof(buffer), 0);
-                FD_CLR(i, &current_sockets);
-            }
-        }
+        perror("bind failed");
+        exit(EXIT_FAILURE);
     }
+    if (listen(server_fd, 3) < 0)
+    {
+        perror("listen");
+        exit(EXIT_FAILURE);
+    }
+    if ((new_socket = accept(server_fd, (struct sockaddr *)&address, 
+                       (socklen_t*)&addrlen))<0)
+    {
+        perror("accept");
+        exit(EXIT_FAILURE);
+    }
+    valread = recv(new_socket , buffer, sizeofBuffer, 0);
+    
+    close(server_fd);
+    close(new_socket);
+    return;
 }
