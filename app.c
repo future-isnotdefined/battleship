@@ -11,14 +11,15 @@
 #include <arpa/inet.h>
 #include <pthread.h>
 
-void game (char player1[], char player2[], int *abortion) {
+void game (char player1[], int *abortion) {
     //Definition of Variables ---------------------------
     //[y][x]
     int board1[10][10];
     int board2[10][10];
     bool gameoverBool = true;
     int currentPlayer;
-    bool hitBool;
+    int hitBool;
+    char player2[30];
 
     //Ships player 1
     bool schlachtschiffplayer1[5];
@@ -38,6 +39,12 @@ void game (char player1[], char player2[], int *abortion) {
     int port = 402;
     char ownAddress[16];
     char opponentAddress[16];
+    char buffer[100];
+    int sizeofBuffer;
+    sizeofBuffer = sizeof(buffer);
+    char receieveBuffer[100];
+    int sizeofreceieveBuffer;
+    sizeofreceieveBuffer = sizeof(receieveBuffer);
 
     //if ship is hit it is 1 otherwise it is 0
     //Board is -1 if no ship is on the space
@@ -71,30 +78,64 @@ void game (char player1[], char player2[], int *abortion) {
     printf("Gegnerische IP Adresse eingeben\n");
     scanf("%s", opponentAddress);
     getchar();
-    //Give another name to other player
+
+    //Handling who goes first
+    printf("Bist du Spieler 1 oder Spieler 2?");
+    scanf("%d", currentPlayer);
+    getchar();
+    if (currentPlayer == 1){
+        strcpy(buffer, player1);
+        sending(port, opponentAddress, buffer, sizeofBuffer);
+        receive(port, ownAddress, receieveBuffer, sizeofreceieveBuffer);
+        strcpy(player2, receieveBuffer);
+    }
+    if (currentPlayer == 2){
+        receive(port, ownAddress, receieveBuffer, sizeofreceieveBuffer);
+        strcpy(player2, receieveBuffer);
+        strcpy(buffer, player1);
+        sending(port, opponentAddress, buffer, sizeofBuffer);
+        hitBool = receiveHit(ownAddress,port,opponentAddress, board1, &hitsplayer1, shipFields1, buffer, sizeofBuffer, sizeofreceieveBuffer, receieveBuffer);
+        if(hitBool == 2) {
+            printf("-----   %s hat gewonnen!   -----\n", player1);
+            showBoard(board1, player1);
+            printf("\n\n");
+            showBoard(board2, player2);
+            getchar();
+            gameoverBool = false;
+        }
+    }
+
     //Game Loop -----------------------------------------
     while (gameoverBool) {
         // printf("\n\n----- DEBUGGING ------- hitsplayer1 vor function pass: %d\n\n", hitsplayer1);
-        hitBool = shoot(ownAddress, port, opponentAddress, board2, board1, &hitsplayer1, shipFields1, player1); // spieler 1 schießt auf board2 -> enemy board Eingabeparam
+        hitBool = shoot(buffer, sizeofBuffer, receieveBuffer, sizeofreceieveBuffer, ownAddress, port, opponentAddress, board2, board1, &hitsplayer1, shipFields1, player1, player2); // spieler 1 schießt auf board2 -> enemy board Eingabeparam
         // printf("\n\n----- DEBUGGING ------- hits nach function pass: %d\n\n", hitsplayer1);
-            //if(checkWin(&hitsplayer1) == true) {
-                //printf("-----   %s hat gewonnen!   -----\n", player1);
+            if(hitBool == 2) {
+                printf("-----   %s hat gewonnen!   -----\n", player1);
                 showBoard(board1, player1);
                 printf("\n\n");
                 showBoard(board2, player2);
                 getchar();
                 gameoverBool = false;
-                system("cls");
-            //}
+            }
+            hitBool = receiveHit(ownAddress,port,opponentAddress, board1, &hitsplayer1, shipFields1, buffer, sizeofBuffer, sizeofreceieveBuffer, receieveBuffer);
+            if(hitBool == 2) {
+                printf("-----   %s hat gewonnen!   -----\n", player2);
+                showBoard(board1, player1);
+                printf("\n\n");
+                showBoard(board2, player2);
+                getchar();
+                gameoverBool = false;
+            }
     }
     printf("[-1] Spiel beenden  | [andere Taste] Erneut spielen\n");
     scanf(" %d", abortion);
     getchar();
-    system("cls");
+    system("clear");
     splashScreen("title.txt"); // end screen oder (viel sinnvoller) erneut spielen direkt möglich machen
     getchar();
     getchar();
-    system("cls");
+    system("clear");
 }
 
 
@@ -102,7 +143,6 @@ int main (void) {
 
     //Definition of Variables ---------------------------
     char player1[30];
-    char player2[30];
 
     int abortion = 0;
     //if ship is hit it is 1 otherwise it is 0
@@ -110,18 +150,15 @@ int main (void) {
 
     splashScreen("title.txt");
     getchar();
-    system("cls");
+    system("clear");
 
     //Pre Loop ------------------------------------------
-    printf("Name Spieler 1: ");
+    printf("Name Spieler: ");
     scanf(" %[^\n]", player1);
-    getchar();
-    printf("\nName Spieler 2: ");
-    scanf(" %[^\n]", player2);
     getchar();
 
     while (abortion != -1) {
-        game(player1, player2, &abortion);
+        game(player1, &abortion);
     }
     
     return 0;
